@@ -1,58 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fetch and Display Data</title>
-</head>
-<body>
-    <h1>Live Data</h1>
-	<p>Refresh rate = 10s</p>
-    <table id="data-table">
-        <thead>
-            <tr>
-                <th>Timestamp</th>
-                <th>Humidity</th>
-                <th>Temperature</th>
-                <th>CO2</th>
-            </tr>
-        </thead>
-        <tbody id="data-body"></tbody>
-    </table>
 
-    <script>
-        // Function to fetch and display data as a table
-        async function fetchData() {
-            try {
-                const response = await fetch('/update');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mushroom Project :></title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
 
-                const data = await response.json();
+    <body>
+        <h1 class="mainHeading">Mushroom Project</h1>
+        <h2>Weather Data</h2>
+        <h3>Temperature</h3>
+        <p id = "temperatureText"></p>
+        <h3>Humidity</h3>
+        <p id = "humidityText"></p>
+        <h3>CO<sub>2</sub> Levels</h3>
+        <p id = "co2Text"></p>
+	<h4>Actuator 1 Status</h3>
+	<p id = "act1Text"> </p>
+	
+	<h4>Actuator 1 Control:</h4>
+    	<label class="switch">
+	<input type="checkbox" id="sendRequestButton">
+	<span class="slider"></span>
+	</label>
+ 
+	<h4>Actuator 2 Control:</h4>
+        <label class="switch">
+        <input type="checkbox" id="sendRequestButton">
+        <span class="slider"></span>
+        </label>
 
-                const dataTable = document.getElementById('data-table');
-                const dataBody = document.getElementById('data-body');
-                dataBody.innerHTML = ''; // Clear existing data
+ 	<h4>Actuator 3 Control:</h4>
+        <label class="switch">
+        <input type="checkbox" id="sendRequestButton">
+        <span class="slider"></span>
+        </label>
 
-                data.forEach(item => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${item.timestamp}</td>
-                        <td>${item.humidity}</td>
-                        <td>${item.temperature}</td>
-                        <td>${item.co2}</td>
-                    `;
-                    dataBody.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        // Call the fetchData function initially and every 10 seconds
-        fetchData(); // Initial call
-        setInterval(fetchData, 10000); // Refresh every 10 seconds
-    </script>
-</body>
+        <script src ="./dataproc.js"></script>
+    </body>
 </html>
